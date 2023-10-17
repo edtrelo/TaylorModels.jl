@@ -21,7 +21,7 @@ end
 
 # gets a random point within the box.
 function get_random_point(ib0::IntervalBox{N, T}) where {N, T}
-    γsectionCC(lo(X), hi(X))
+    γsectionCC(lo(ib0), hi(ib0))
 end
 
 function check_containment(ftest, xx::TaylorModelN{N,T,S}, tma::TaylorModelN{N,T,S}) where {N,T,S}
