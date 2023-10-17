@@ -3,6 +3,7 @@
 using TaylorModels
 using LinearAlgebra: norm
 using Test
+include("randomfpn.jl")
 
 const _num_tests = 1000
 const α_mid = TaylorModels.α_mid
@@ -12,7 +13,7 @@ setformat(:full)
 
 function check_containment(ftest, tma::T) where {T<:Union{TaylorModel1, RTaylorModel1}}
     x0 = expansion_point(tma)
-    xfp = diam(domain(tma))*(rand()-0.5) + mid(x0)
+    xfp = γsectionCC(domain(tma).lo, domain(tma).hi)
     xbf = big(xfp)
     range = tma((xfp .. xfp)-x0)
     bb = ftest(xbf) ∈ range
