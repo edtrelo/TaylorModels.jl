@@ -3,14 +3,25 @@
 using TaylorModels
 using LinearAlgebra: norm
 using Test
+include("randomfpn.jl")
 
 const _num_tests = 1000
 
 setformat(:full)
 
+# gets a vector with the lower limits of the box.
+function lo(X::IntervalBox{N, T}) where {N, T}
+    [X[i].lo for i in 1:N]
+end
+
+# gets a vector with the upper limits of the box.
+function hi(X::IntervalBox{N, T}) where {N, T}
+    [X[i].hi for i in 1:N]
+end
+
+# gets a random point within the box.
 function get_random_point(ib0::IntervalBox{N, T}) where {N, T}
-    xmid = mid(ib0)
-    return diam.(ib0) .* (rand(N) .- 0.5) .+ xmid
+    γsectionCC(lo(X), hi(X))
 end
 
 function check_containment(ftest, xx::TaylorModelN{N,T,S}, tma::TaylorModelN{N,T,S}) where {N,T,S}
