@@ -31,6 +31,8 @@ function γsectionCC(a, b)
         return max(γ_low, γ_high)
     end
 
+
+
     """
     ceilint(a, b, g)
 
@@ -56,4 +58,14 @@ function γsectionCC(a, b)
     else
         return (k == hi) ? b : a+k*g
     end
+end
+
+"""
+γsectionCC(A, B)
+
+Draw a vector of floats with lower limits A and upper limits B. 
+"""
+function γsectionCC(lo::Vector{T}, hi::Vector{T}) where {T}
+    @assert length(lo) == length(hi)
+    [γsectionCC(lo[i], hi[i]) for i in 1:length(lo)]
 end
